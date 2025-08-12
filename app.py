@@ -29,7 +29,7 @@ price_range = st.slider(
 # 범위 필터 적용
 filtered_gdf = gdf[(gdf["avg_price"] >= price_range[0]) & (gdf["avg_price"] <= price_range[1])]
 
-# Plotly Choropleth 지도
+# hover_data에 맞게 필드 지정
 fig = px.choropleth_mapbox(
     filtered_gdf,
     geojson=filtered_gdf.geometry.__geo_interface__,
@@ -41,8 +41,14 @@ fig = px.choropleth_mapbox(
     zoom=10,
     center={"lat": 37.5665, "lon": 126.9780},
     opacity=0.7,
-    labels={"avg_price": "평균가(만원)"},
-    hover_data={"avg_price": True}
+    labels={
+        "avg_price": "평균가(만원)",
+        "adm_nm": "지역명"
+    },
+    hover_data={
+        "adm_nm": True,       # 지역명 표시
+        "avg_price": ':.2f'   # 소수점 2자리까지 표시
+    }
 )
 
 st.plotly_chart(fig, use_container_width=True)
