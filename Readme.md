@@ -61,3 +61,6 @@
     pip install -r requirements.txt
     streamlit run app.py
     ```
+
+### 결과
+![홈페이지시연](output/streamlit_app.gif)
